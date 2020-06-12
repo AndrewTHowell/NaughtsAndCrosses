@@ -28,8 +28,29 @@ class Board:
 
     @property
     def won(self):
-        # TODO - check for win state
+        # Check each row and column for a win
+        for i in range(self.boardSize):
+            # i-th row
+            if self.winArray(self.board[i]):
+                # Row i is a winning row
+                return True
+
+            # i-th column
+            if self.winArray(self.board[:, i]):
+                # Column i is a winning row
+                return True
+
+        # Check the 2 diagonals
+        if self.winArray(self.board.diagonal()):
+            return True
+        if self.winArray(np.fliplr(self.board).diagonal()):
+            return True
+
         return False
+
+    @staticmethod
+    def winArray(arr):
+        return np.all(arr == arr[0]) and arr.sum() != 0
 
     def changePlayer(self, num=1):
         self.player = ((self.player - 1 - num) % (len(self.players) - 1)) + 1
@@ -70,10 +91,11 @@ class Board:
         # Undo moving to player after winning player
         self.changePlayer(num=-1)
 
-        print(f"Player {self.player} won!!")
+        print(f"\nPlayer {self.player} won!!")
+        print(self)
 
 
 if __name__ == "__main__":
-    currentBoard = Board()
+    currentBoard = Board(4)
 
     currentBoard.play()
