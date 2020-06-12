@@ -1,4 +1,5 @@
 import numpy as np
+import UI
 
 
 class Board:
@@ -30,7 +31,17 @@ class Board:
         # TODO - check for win state
         return False
 
-        return string
+    def nextPlayer(self):
+        self.player = (self.player % (len(self.players) - 1)) + 1
+
+    def nextMove(self):
+        print(f"\nPlayer {self.player}'s Turn:")
+        print(f"\nWhere do you want to place an {self.players[self.player]}")
+        print(self)
+        rowNum = UI.getNum("Row Num", 1, self.boardSize)
+        colNum = UI.getNum("Column Num", 1, self.boardSize)
+
+        self.nextPlayer()
 
     def play(self):
         # Reset the board
