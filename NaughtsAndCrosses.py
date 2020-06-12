@@ -4,13 +4,21 @@ import UI
 
 class Board:
 
-    def __init__(self, boardSize=3):
+    def __init__(self, numOfPlayers=2, boardSize=3):
         self.boardSize = boardSize
         self.players = {
             0: " ",
             1: "O",
             2: "X"
         }
+        if numOfPlayers < 2:
+            raise ValueError("Invalid number of players, must be 2 or more")
+        elif numOfPlayers > 2:
+            self.players = {
+                0: " "
+            }
+            for playerNum in range(numOfPlayers):
+                self.players[playerNum + 1] = chr(65 + playerNum)
 
         self.board = np.zeros((self.boardSize, self.boardSize), dtype=int)
         self.player = 1
@@ -66,7 +74,7 @@ class Board:
 
     def nextMove(self):
         print(f"\nPlayer {self.player}'s Turn:")
-        print(f"\nWhere do you want to place an {self.players[self.player]}")
+        print(f"\nWhere do you want to place an '{self.players[self.player]}'")
         print(self)
 
         validMove = None
@@ -96,6 +104,6 @@ class Board:
 
 
 if __name__ == "__main__":
-    currentBoard = Board(4)
+    currentBoard = Board(numOfPlayers=3, boardSize=3)
 
     currentBoard.play()
