@@ -61,7 +61,7 @@ class Board:
         return np.all(arr == arr[0]) and arr.sum() != 0
 
     def changePlayer(self, num=1):
-        self.player = ((self.player - 1 - num) % (len(self.players) - 1)) + 1
+        self.player = ((self.player - 1 + num) % (len(self.players) - 1)) + 1
 
     def attemptMove(self, row, col):
         # Decrement numbers to conform to array indices
@@ -104,6 +104,10 @@ class Board:
 
 
 if __name__ == "__main__":
-    currentBoard = Board(numOfPlayers=3, boardSize=3)
+    print(" *** Naughts and Crosses ***")
+    playerNum = UI.getNum("How many people will be playing?", minimum=2, default=2)
+    sizeOfBoard = UI.getNum("What size board do you want to play on?", minimum=2, default=3)
+
+    currentBoard = Board(numOfPlayers=playerNum, boardSize=sizeOfBoard)
 
     currentBoard.play()
