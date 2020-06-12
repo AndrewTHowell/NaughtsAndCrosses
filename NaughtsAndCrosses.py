@@ -4,9 +4,8 @@ import numpy as np
 class Board:
 
     def __init__(self, boardSize=3):
-
         self.boardSize = boardSize
-        self.board = np.zeros((boardSize, boardSize), dtype=int)
+        self.board = np.zeros((self.boardSize, self.boardSize), dtype=int)
 
         self.players = {
             0: " ",
@@ -26,6 +25,12 @@ class Board:
 
         return string
 
+    def play(self):
+        # Reset the board
+        self.board = np.zeros((self.boardSize, self.boardSize), dtype=int)
+
 
 if __name__ == "__main__":
     currentBoard = Board()
+
+    currentBoard.play()
